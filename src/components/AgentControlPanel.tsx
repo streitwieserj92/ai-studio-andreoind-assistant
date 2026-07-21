@@ -226,9 +226,7 @@ export default function AgentControlPanel({
       setLoadingTemplates(true);
       // Delete existing documents in firestore
       const querySnapshot = await getDocs(collection(db, 'templates'));
-      for (const d of querySnapshot.docs) {
-        await deleteDoc(doc(db, 'templates', d.id));
-      }
+      await Promise.all(querySnapshot.docs.map(d => deleteDoc(doc(db, 'templates', d.id))));
 
       // Re-populate with defaults
       const initialTemplates = [];

@@ -1,0 +1,38 @@
+{
+  "entities": {
+    "TaskTemplate": {
+      "title": "TaskTemplate",
+      "description": "A saved sequence of UI and app actions as a task template",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the template"
+        },
+        "command": {
+          "type": "string",
+          "description": "The natural language instruction command"
+        },
+        "desc": {
+          "type": "string",
+          "description": "A description of what the template does"
+        },
+        "createdAt": {
+          "type": "integer",
+          "description": "Creation timestamp in milliseconds"
+        },
+        "isDefault": {
+          "type": "boolean",
+          "description": "Whether this is a system default template"
+        }
+      },
+      "required": ["title", "command", "desc", "createdAt"]
+    }
+  },
+  "firestore": {
+    "templates": {
+      "schema": "TaskTemplate",
+      "description": "Collection of task templates available to the user"
+    }
+  }
+}

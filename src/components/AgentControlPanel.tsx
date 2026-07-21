@@ -96,19 +96,19 @@ export default function AgentControlPanel({
         
         if (querySnapshot.empty) {
           // If empty, let's pre-populate Firestore with DEFAULT_TEMPLATES
-          const initialTemplates = [];
-          for (let i = 0; i < DEFAULT_TEMPLATES.length; i++) {
-            const temp = DEFAULT_TEMPLATES[i];
-            const docData = {
-              title: temp.title,
-              command: temp.command,
-              desc: temp.desc,
-              createdAt: new Date().getTime() + i, // ordered simple sorting
-              isDefault: true
-            };
-            const docRef = await addDoc(collection(db, 'templates'), docData);
-            initialTemplates.push({ id: docRef.id, ...docData });
-          }
+          const initialTemplates = await Promise.all(
+            DEFAULT_TEMPLATES.map(async (temp, i) => {
+              const docData = {
+                title: temp.title,
+                command: temp.command,
+                desc: temp.desc,
+                createdAt: new Date().getTime() + i, // ordered simple sorting
+                isDefault: true
+              };
+              const docRef = await addDoc(collection(db, 'templates'), docData);
+              return { id: docRef.id, ...docData };
+            })
+          );
           setTemplates(initialTemplates);
         } else {
           const loaded: any[] = [];

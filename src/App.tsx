@@ -584,7 +584,7 @@ export default function App() {
       <div className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 relative">
         
         {/* Left Side: Agent Controls Panel */}
-        <div className="lg:col-span-4 flex flex-col h-full justify-between" id="dashboard_controls">
+        <div className="lg:col-span-4 flex flex-col h-full justify-between order-2 lg:order-1" id="dashboard_controls">
           <AgentControlPanel
             inputCommand={inputCommand}
             setInputCommand={setInputCommand}
@@ -602,7 +602,7 @@ export default function App() {
         </div>
 
         {/* Center: Device Simulator container */}
-        <div className="lg:col-span-4 flex flex-col justify-center items-center" id="dashboard_simulator">
+        <div className="lg:col-span-4 flex flex-col justify-center items-center order-1 lg:order-2" id="dashboard_simulator">
           <PhoneSimulator
             currentApp={currentApp}
             setCurrentApp={setCurrentApp}
@@ -655,7 +655,7 @@ export default function App() {
         </div>
 
         {/* Right Side: Interactive Shell Logs Console */}
-        <div className="lg:col-span-4 flex flex-col h-full justify-between" id="dashboard_terminal">
+        <div className="lg:col-span-4 flex flex-col h-full justify-between order-3 lg:order-3" id="dashboard_terminal">
           <AdbTerminal logs={adbLogs} onClear={() => setAdbLogs([])} />
         </div>
       </div>

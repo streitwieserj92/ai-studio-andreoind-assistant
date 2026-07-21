@@ -89,9 +89,17 @@ Available Actions:
 
 Output format: You must return a JSON object with the strict properties specified. Do not include markdown wraps. Ensure the steps flow logically (e.g. open the app before tapping its inside elements).`;
 
+    // Sanitize user input to prevent prompt injection
+    const sanitizedCommand = command
+      .replace(/\\/g, '\\\\')
+      .replace(/"/g, '\\"')
+      .replace(/\n/g, ' ')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
     const response = await ai.models.generateContent({
       model: 'gemini-3.5-flash',
-      contents: `Translate this command into a sequence of agent steps: "${command}"`,
+      contents: `Translate the command enclosed in <command> tags into a sequence of agent steps:\n<command>${sanitizedCommand}</command>`,
       config: {
         systemInstruction,
         responseMimeType: 'application/json',
